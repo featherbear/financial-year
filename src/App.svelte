@@ -2,10 +2,16 @@
   import svelteLogo from './assets/svelte.svg'
   import viteLogo from '/vite.svg'
   import Counter from './lib/Counter.svelte'
+  import Clock from './lib/Clock'
+  import dayjs from 'dayjs'
+  import { lookup } from './lib/util';
+
 </script>
 
 <main>
   <div>
+    {lookup("Australia", $Clock)}
+    {$Clock}
     <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
       <img src={viteLogo} class="logo" alt="Vite Logo" />
     </a>
