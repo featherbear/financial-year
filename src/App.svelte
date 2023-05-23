@@ -8,9 +8,10 @@
   import { setContext } from "svelte";
 
   let zoneContext = withZone("Australia");
-  
+
   let quarter = zoneContext.lookup($Clock);
   let nextQuarter = zoneContext.nextQuarter(quarter);
+  let previousQuarter = zoneContext.previousQuarter(quarter);
 </script>
 
 <main>
@@ -22,9 +23,22 @@
       <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
     </a>
   </div>
-  <h1>{$Clock.format("DD/MM/YYYY")}</h1>
-  <h2>{formatLookup(quarter)}</h2>
-<h3>{formatLookup(nextQuarter)} {dayjs(nextQuarter[2]).format("DD/MM/YYYY")}</h3>
+  <h3>
+    Prev -
+    {formatLookup(previousQuarter)}
+    ({dayjs(previousQuarter[2]).format("DD/MM/YYYY")})
+  </h3>
+
+  <div>
+    <h1>{formatLookup(quarter)}</h1>
+    <h2>{$Clock.format("DD/MM/YYYY")}</h2>
+  </div>
+
+  <h3>
+    Next -
+    {formatLookup(nextQuarter)}
+    ({dayjs(nextQuarter[2]).format("DD/MM/YYYY")})
+  </h3>
   <div class="card">
     <Counter />
   </div>

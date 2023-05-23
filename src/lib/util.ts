@@ -68,6 +68,27 @@ export function lookup(zone: ZoneEntry, date?: dayjs.Dayjs) {
     return quarterArray[result]
 }
 
+
+function previousQuarter(zone: ZoneEntry, currentQuarter: ReturnType<typeof lookup>) {
+
+    let keys = Object.keys(zone);
+    let previousQuarterKey = keys[(keys.indexOf(currentQuarter[0]) - 1 + keys.length) % keys.length];
+    let previousQuarter = zone[previousQuarterKey];
+
+    let date = dayjs(new Date(
+        currentQuarter[1] + (previousQuarter[2] ?? 0),
+        previousQuarter[1] - 1,
+        previousQuarter[0]
+    ));
+
+    if (date.isAfter(currentQuarter[2])) {
+        date = date.subtract(1, 'year')
+    }
+
+    return lookup(zone, dayjs(date))
+}
+
+
 function nextQuarter(zone: ZoneEntry, currentQuarter: ReturnType<typeof lookup>) {
 
     let keys = Object.keys(zone);
@@ -99,6 +120,7 @@ export const withZone = (zone: string | ZoneEntry) => {
         lookup: (date?: dayjs.Dayjs) => lookup(target, date),
         getZone: () => target,
         generateQuarterArray: (year: number) => generateQuarterArray(target, year),
-        nextQuarter: (currentQuarter: ReturnType<typeof lookup>) => nextQuarter(target, currentQuarter)
+        nextQuarter: (currentQuarter: ReturnType<typeof lookup>) => nextQuarter(target, currentQuarter),
+        previousQuarter: (currentQuarter: ReturnType<typeof lookup>) => previousQuarter(target, currentQuarter)
     }
 }
