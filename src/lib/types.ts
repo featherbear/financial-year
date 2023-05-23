@@ -1,6 +1,7 @@
-type Day = number & {};
-type Month = number & {};
-type YearOffset = number & {};
+export type Day = number & {};
+export type Month = number & {};
+export type Year = number & {};
+export type YearOffset = number & {};
 
 export type DDMM = [Day, Month, YearOffset?]
 
