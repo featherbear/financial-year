@@ -1,0 +1,32 @@
+name: deploy svelte to github pages
+
+# Don't forget to add `base: './'` to your vite.config.ts file
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '16.x'
+
+    - name: Install packages
+      run: yarn install
+
+    - name: Build
+      run: |
+        yarn build
+        touch ./dist/.nojekyll
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v2.3.1
+      env:
+        PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PUBLISH_BRANCH: gh-pages
+        PUBLISH_DIR: ./dist
