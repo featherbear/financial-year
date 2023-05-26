@@ -1,5 +1,5 @@
 import { get, writable } from 'svelte/store'
-import type { ZoneEntry } from './types'
+import type { ZoneEntry } from '../types'
 
 const key = "fy-active"
 

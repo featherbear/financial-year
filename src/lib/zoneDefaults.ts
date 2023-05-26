@@ -1,4 +1,4 @@
-import type { ZoneEntry } from "./types"
+import type { ZoneEntry } from "../types"
 
 export default {
     "Australia": {

@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import defaultZones from './zoneDefaults'
 import { getZones } from "./zoneStorage";
-import type { Year, ZoneEntry } from "./types";
+import type { Year, ZoneEntry } from "../types";
 
 export function formatLookup(obj: ReturnType<typeof lookup>) {
     return `FY${obj[1]} ${obj[0]}`
